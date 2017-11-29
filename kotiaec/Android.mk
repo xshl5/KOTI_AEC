@@ -6,6 +6,7 @@ LOCAL_MODULE_TAGS := eng
 LOCAL_ARM_MODE:=arm
 
 LOCAL_CFLAGS += -DHAVE_CONFIG_H -DWEBRTC_POSIX
+LOCAL_CFLAGS += -mfloat-abi=softfp -mfpu=neon
 
 LOCAL_SRC_FILES := \
 	./KotiAEC/SpeexAEC1.2/smallft.c \
@@ -54,8 +55,8 @@ LOCAL_SRC_FILES := \
 	./KotiAEC/KotiAEC.cpp 
 
 LOCAL_C_INCLUDES := \
-	$(LOCAL_PATH)/webrtc \
 	$(LOCAL_PATH)/KotiAEC/WebrtcAEC/include
+#	$(LOCAL_PATH)/webrtc \
 
 LOCAL_MODULE := libkoti_aec
 
@@ -74,6 +75,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/KotiAEC
 
 LOCAL_SRC_FILES := \
 	kotiaec_main.cpp
+
+LOCAL_LDFLAGS += -pie -fPIE
 
 LOCAL_STATIC_LIBRARIES := libkoti_aec
 LOCAL_MODULE := kotiaec_test

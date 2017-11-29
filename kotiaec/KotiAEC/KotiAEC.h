@@ -53,9 +53,11 @@ extern int PLAYBACK_DELAY;
  *                          : 1 - Adaptive Analog Automatic Gain Control -3dBOv
  *                          : 2 - Adaptive Digital Automatic Gain Control -3dBOv
  *                          : 3 - Fixed Digital Gain 0dB
+ *
+ *      - ns_mode	: 0: Mild, 1: Medium , 2: Aggressive
 **/
 void KotiAEC_init(int16_t frame_size = 160, int32_t sample_freq = 8000, AEC_CORE aec_core = SPEEX_AEC,
-                  int speex_filter_length = 160*20, int16_t agc_mode = 1, int16_t compression_gain_db = 18, uint8_t limiter_enable = 0, float snd_amplification = 1.0f);
+                  int speex_filter_length = 160*20, int16_t agc_mode = 1, int16_t compression_gain_db = 18, uint8_t limiter_enable = 0, int ns_mode = 1, float snd_amplification = 1.0f);
 int KotiAEC_process(const int16_t* farend, const int16_t* nearend, int16_t* out);
 void KotiAEC_destory();
 int KotiAEC_agc(int16_t* out);

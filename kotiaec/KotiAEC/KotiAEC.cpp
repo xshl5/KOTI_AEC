@@ -34,7 +34,7 @@ static float output_sound_amplification = 1.0f;
 static AEC_CORE aec_core_used = SPEEX_AEC;
 
 void KotiAEC_init(int16_t frame_size, int32_t sample_freq, AEC_CORE aec_core,
-                  int speex_filter_length, int16_t agc_mode, int16_t compression_gain_db, uint8_t limiter_enable, float snd_amplification)
+                  int speex_filter_length, int16_t agc_mode, int16_t compression_gain_db, uint8_t limiter_enable, int ns_mode, float snd_amplification)
 {
     int32_t speex_agc = 0; float speex_agc_level = 24000, speex_agc_level_tmp = 3000;
     int32_t speex_noise_suppress = -15;
@@ -56,7 +56,7 @@ void KotiAEC_init(int16_t frame_size, int32_t sample_freq, AEC_CORE aec_core,
             if( WebRtcNsx_Create((NsxHandle**)&webrtc_aec_pty.webrtc_ns) == 0)
             {
                 WebRtcNsx_Init((NsxHandle*)webrtc_aec_pty.webrtc_ns, webrtc_aec_pty.sample_freq);
-                WebRtcNsx_set_policy((NsxHandle*)webrtc_aec_pty.webrtc_ns, 1);
+                WebRtcNsx_set_policy((NsxHandle*)webrtc_aec_pty.webrtc_ns, ns_mode);
             }
             if( WebRtcAgc_Create(&webrtc_aec_pty.webrtc_agc) == 0)
             {
@@ -83,7 +83,7 @@ void KotiAEC_init(int16_t frame_size, int32_t sample_freq, AEC_CORE aec_core,
             if( WebRtcNsx_Create((NsxHandle**)&webrtc_aecm_pty.webrtc_ns) == 0)
             {
                 WebRtcNsx_Init((NsxHandle*)webrtc_aecm_pty.webrtc_ns, webrtc_aecm_pty.sample_freq);
-                WebRtcNsx_set_policy((NsxHandle*)webrtc_aecm_pty.webrtc_ns, 1);
+                WebRtcNsx_set_policy((NsxHandle*)webrtc_aecm_pty.webrtc_ns, ns_mode);
             }
             if( WebRtcAgc_Create(&webrtc_aecm_pty.webrtc_agc) == 0)
             {
